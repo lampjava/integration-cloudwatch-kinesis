@@ -1,0 +1,9 @@
+server:
+  port: 8085
+aws:
+  region: ap-northeast-2
+  kinesis:
+    access:
+      id: AKIAI744UOV2SZI6LKDA
+      secret: 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
+    streamName: Lightsaber-PoC-Integration
