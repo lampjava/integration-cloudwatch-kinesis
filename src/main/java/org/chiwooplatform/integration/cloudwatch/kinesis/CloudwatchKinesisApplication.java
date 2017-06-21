@@ -11,8 +11,6 @@ import org.chiwooplatform.integration.cloudwatch.kinesis.support.TransactionLogg
 @SpringBootApplication
 public class CloudwatchKinesisApplication {
 
-    public static final String TXID = "TXID";
-
     public static void main( String[] args ) {
         SpringApplication.run( CloudwatchKinesisApplication.class, args );
     }

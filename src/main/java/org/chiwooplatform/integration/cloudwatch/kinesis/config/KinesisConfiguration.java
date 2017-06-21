@@ -41,9 +41,6 @@ public class KinesisConfiguration {
     @Value("${aws.kinesis.streamName}")
     private String streamName;
 
-    @Value("${aws.kinesis.endpoint}")
-    private Integer receiveLimit;
-
     @Autowired
     protected AmazonKinesisAsync amazonKinesis;
 

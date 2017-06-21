@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import org.chiwooplatform.integration.cloudwatch.kinesis.CloudwatchKinesisApplication;
+import org.chiwooplatform.integration.cloudwatch.kinesis.Constants;
 import org.chiwooplatform.integration.cloudwatch.message.SnsMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +27,7 @@ import com.google.gson.Gson;
 public class IntegrationAdapterController {
 
     protected static final String BASE_URI = "/adapter/cloudwatch";
-
-    private static final String TXID = CloudwatchKinesisApplication.TXID;
+ 
 
     protected final Logger logger = LoggerFactory.getLogger( IntegrationAdapterController.class );
 
@@ -38,23 +37,25 @@ public class IntegrationAdapterController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private Message<?> buildMessage( final String msg, final String tXID ) {
-        return MessageBuilder.withPayload( msg ).setHeader( "test.class.type", "CloudWatch" ).setHeader( "TXID", tXID )
-                             .setHeader( AwsHeaders.SNS_MESSAGE_TYPE, "CloudWatch" ).build();
+    private Message<?> buildMessage( final String msg, final String messageKey ) {
+        return MessageBuilder.withPayload( msg ).setHeader( Constants.MESSAGE_KEY, messageKey )
+                             .setHeader( Constants.MESSAGE_TYPE, "CloudWatch" ).build();
     }
 
     private void send( final String channelId, final String msg, final String tXID ) {
-        Message<?> message = MessageBuilder.withPayload( buildMessage( msg, tXID ) )
+        final String messageKey = "cloudwatch.json." + tXID;
+        Message<?> message = MessageBuilder.withPayload( buildMessage( msg, messageKey ) )
                                            .setHeader( AwsHeaders.PARTITION_KEY, channelId ).build();
         kinesisChannel.send( message );
     }
+
 
     @RequestMapping(value = BASE_URI + "/{channelId}", method = RequestMethod.POST, produces = {
         MediaType.TEXT_PLAIN_VALUE })
     public void send( @PathVariable("channelId") String channelId, HttpServletRequest request ) {
         // request.getInputStream().
         logger.info( " channelId: {}", channelId );
-        String tXID = (String) request.getAttribute( TXID );
+        String tXID = (String) request.getAttribute( Constants.TXID );
         logger.info( "You can add TXID '{}' header-key of message for tracing requested transaction", tXID );
         Gson gson = new Gson();
         SnsMessage message = null;

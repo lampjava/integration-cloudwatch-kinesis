@@ -9,13 +9,13 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.web.filter.GenericFilterBean;
 
-import org.chiwooplatform.integration.cloudwatch.kinesis.CloudwatchKinesisApplication;
+import org.chiwooplatform.integration.cloudwatch.kinesis.Constants;
 import org.slf4j.MDC;
 
 public class TransactionLoggingFilter
     extends GenericFilterBean {
 
-    private static final String TXID = CloudwatchKinesisApplication.TXID;
+    private static final String TXID = Constants.TXID;
 
     @Override
     public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain )
