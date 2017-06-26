@@ -1,4 +1,4 @@
-package com.bespinglobal.alarm.adapter.cloudwatch.message;
+package org.chiwooplatform.integration.cloudwatch.message;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

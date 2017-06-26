@@ -1,16 +1,16 @@
-package com.bespinglobal.alarm.adapter.cloudwatch.message;
+package org.chiwooplatform.integration.cloudwatch.message;
 
-public class SubscriptionConfirmation {
+public class UnsubscribeConfirmation {
 
     private String Type;
-
-    private String Message;
 
     private String MessageId;
 
     private String Token;
 
     private String TopicArn;
+
+    private String Message;
 
     private String SubscribeURL;
 
@@ -28,14 +28,6 @@ public class SubscriptionConfirmation {
 
     public void setType( String type ) {
         Type = type;
-    }
-
-    public String getMessage() {
-        return Message;
-    }
-
-    public void setMessage( String message ) {
-        Message = message;
     }
 
     public String getMessageId() {
@@ -60,6 +52,14 @@ public class SubscriptionConfirmation {
 
     public void setTopicArn( String topicArn ) {
         TopicArn = topicArn;
+    }
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage( String message ) {
+        Message = message;
     }
 
     public String getSubscribeURL() {

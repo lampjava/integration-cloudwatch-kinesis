@@ -1,4 +1,4 @@
-package com.bespinglobal.alarm.adapter.cloudwatch.message;
+package org.chiwooplatform.integration.cloudwatch.message;
 
 import org.springframework.web.client.RestTemplate;
 
